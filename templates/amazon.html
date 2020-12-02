@@ -1,144 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Amazon Price Traker</title>
-    <link rel="icon" href="/static/images/amlogo.png">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700" rel="stylesheet">
+    <link rel="icon" href="/static/images/amlogo.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700"
+      rel="stylesheet"
+    />
     <style>
-
-      html, body {
-      font-family: Poppins, sans-serif;
-      font-size: 20px;
-      box-sizing: border-box;
-      background: #cccccc;
+      html,
+      body {
+        font-family: Poppins, sans-serif;
+        font-size: 20px;
+        box-sizing: border-box;
+        background: #cccccc;
       }
 
-      input[type=text],input[type=url] {
-          background: #dfe4eb;
-          width: 100%;
-          padding: 12px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          resize: vertical;
-        }
+      input[type="text"],
+      input[type="url"] {
+        background: #dfe4eb;
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+      }
 
-        label {
-          padding: 12px 12px 12px 0;
-          display: inline-block;
-        }
-        .sub{
-            display: flex;
-            justify-content: center;
-        }
-        input[type=submit] {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 10px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 20px;
-            margin: 4px 2px;
-            cursor: pointer;
-            -webkit-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-        }
+      label {
+        padding: 12px 12px 12px 0;
+        display: inline-block;
+      }
+      .sub {
+        display: flex;
+        justify-content: center;
+      }
+      input[type="submit"] {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 10px 25px;
+        border-radius: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+      }
 
-        input[type=submit]:hover {
-            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-        }
+      input[type="submit"]:hover {
+        box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+          0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      }
 
-        .col-25 {
-          float: left;
-          width: 25%;
-          margin: 6px;
-        }
+      .col-25 {
+        float: left;
+        width: 25%;
+        margin: 6px;
+      }
 
+      .col-75 {
+        float: left;
+        width: 60%;
+        margin-top: 6px;
+      }
+
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      .icon {
+        display: flex;
+        justify-content: center;
+      }
+
+      @media screen and (max-width: 600px) {
+        .col-25,
         .col-75 {
-          float: left;
-          width: 60%;
-          margin-top: 6px;
+          width: 90%;
+          margin-top: 0;
         }
-
-        .row:after {
-          content: "";
-          display: table;
-          clear: both;
+        input[type="submit"] {
+          background-color: #4caf50; /* Green */
+          border: none;
+          color: white;
+          padding: 5px 20px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          border-radius: 10px;
+          margin: 14px 2px;
+          cursor: pointer;
+          -webkit-transition-duration: 0.4s;
+          transition-duration: 0.4s;
         }
-        .icon{
-            display: flex;
-            justify-content: center;
-        }
-
-        @media screen and (max-width: 600px) {
-          .col-25, .col-75 {
-            width: 90%;
-            margin-top: 0;
-          }
-          input[type=submit] {
-            background-color: #4CAF50; /* Green */
-            border: none;
-            color: white;
-            padding: 5px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            border-radius: 10px;
-            margin: 14px 2px;
-            cursor: pointer;
-            -webkit-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-        }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="icon">
-        <img src="/static/images/amazon.png" alt="Amazon_Price_Track" style="max-width: 100%;">
+      <img
+        src="/static/images/amazon.png"
+        alt="Amazon_Price_Track"
+        style="max-width: 100%"
+      />
     </div>
-    <p style="text-align: center;">This webpage tracks the price of the product available in Amazon Online Shopping
-     Site and notify you by mail when the price fell down below your desired price.</p><br><br>
-    <form action="/amazonTracker" method='post' >
-    <div class="row">
+    <p style="text-align: center">
+      This webpage tracks the price of the product available in Amazon Online
+      Shopping Site and notify you by mail when the price fell down below your
+      desired price.
+    </p>
+    <br /><br />
+    <form action="/amazonTracker" method="post">
+      <div class="row">
         <div class="col-25">
-            <label>Name:</label>
+          <label>Name:</label>
         </div>
         <div class="col-75">
-            <input type="text" name="fname" placeholder="Enter Your Name" required><br>
+          <input
+            type="text"
+            name="fname"
+            placeholder="Enter Your Name"
+            required
+          /><br />
         </div>
-    </div>
-    <div class="row">
+      </div>
+      <div class="row">
         <div class="col-25">
-            <label >Email:</label>
+          <label>Email:</label>
         </div>
         <div class="col-75">
-            <input type="text" name="email" placeholder="Enter Your Email to Notify" required><br>
+          <input
+            type="text"
+            name="email"
+            placeholder="Enter Your Email to Notify"
+            required
+          /><br />
         </div>
-    </div>
-    <div class="row">
+      </div>
+      <div class="row">
         <div class="col-25">
-            <label >URL of the Produt:</label>
+          <label>URL of the Produt:</label>
         </div>
         <div class="col-75">
-            <input type="url" name="url" placeholder="Enter Your URL of the Product" required><br>
+          <input
+            type="url"
+            name="url"
+            placeholder="Enter Your URL of the Product"
+            required
+          /><br />
         </div>
-    </div>
-    <div class="row">
+      </div>
+      <div class="row">
         <div class="col-25">
-            <label >Desired Price to Notify:</label>
+          <label>Desired Price to Notify:</label>
         </div>
         <div class="col-75">
-            <input type="text" name="price" placeholder="Enter Your Price you Wish" required><br>
+          <input
+            type="text"
+            name="price"
+            placeholder="Enter Your Price you Wish"
+            required
+          /><br />
         </div>
-    </div>
-    <div class="sub">
-        <input type="submit" value="Submit">
-    </div>
-</form>
-</body>
+      </div>
+      <div class="sub">
+        <input type="submit" value="Submit" />
+      </div>
+    </form>
+  </body>
 </html>
