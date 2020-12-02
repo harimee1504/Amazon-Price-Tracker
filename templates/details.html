@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700" rel="stylesheet">
+    <style>
+      html, body {
+        font-family: Poppins, sans-serif;
+        font-size: 20px;
+        box-sizing: border-box;
+        }
+      .icon{
+        display: flex;
+        justify-content: center;
+        }
+        .icon1{
+          background-color: #4CAF50;
+          color: whitesmoke;
+        }
+      .container{
+          display: flex;
+          width: 95%;
+          margin-top: 2vh;
+          float:right;
+        }
+      .image{
+          display: flex;
+          justify-content: center;
+          width: 25%;
+        }
+      .image img{ 
+          max-width: 100%;
+          margin-top: 5vh;
+        }
+      .deta{
+          display: flex;
+          flex-direction: column;
+          margin-left: 5vw;
+          width: 25%;
+          text-align: left;
+        }
+        #img{
+          background-color: #4CAF50;
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          border-radius: 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+        }
+        #img:hover{
+            transform: scale(1.02);
+        }
+       .sent{
+            margin-left: 15vw;
+            margin-top: 35vh;
+        }
+        .back{
+          max-width: 30%;
+          background-color: #4caf50;
+          border: none;
+          font-size: 16px;
+          border-radius: 10px;
+          color: white;
+          padding: 15px 30px;
+          text-align: center;
+          text-decoration: none;
+        }
+        @media screen and (max-width: 600px) {
+          .image{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+           }
+        }
+    </style>
+  </head>
+  <body>
+    <div class="icon">
+      <img src="/static/images/amazon.png" alt="Amazon_Price_Track" style="max-width: 100%;">
+    </div>
+    <div class="icon1">
+      <h3 style="text-align:center;">{{title}}</h3>
+    </div>
+    <div class="container">
+      <div class="image">
+        <img src="{{img_url}}" alt="{{title}}">
+      </div> 
+      <div class="deta">
+        <h4 style="margin-left:5vw;margin-top:10vh;">Rating: {{rating}}</h4>
+        <h4 style="margin-left:5vw;">Product Price: {{price}}.00</h4>
+        <h4 style="margin-left:5vw;">Desired Price: {{dprice}}.00</h4>
+        <a target="_blank" id="img" href="{{url}}">Check It Out Here</a>
+      </div>
+      <div class="sent">
+        <h4>We Will notify you once price fell down !</h4>
+        <h4 style="margin-left:2vw;">Mail Sent !</h4>
+        <a class="back" href="/">Back to Home</a>
+      </div>
+    </div>
+  </body>
+</html>
