@@ -36,6 +36,32 @@ def sendmail(name, receiver, tit, url1, r):
     smtp.quit()
 
 
+global lst
+lst = []
+
+
+def titname(URL):
+    if len(lst) != 0:
+        return lst[0]
+    else:
+        ua = UserAgent()
+        headers = {
+            'User-Agent': ua.random}
+        page = requests.get(URL, headers=headers)
+        soup = BeautifulSoup(page.content, 'lxml')
+        title = soup.find(id="productTitle")
+        for d in soup.findAll('div', attrs={'class': 'a-section a-spacing-none'}):
+            name = d.find(
+                'span', attrs={'class': 'a-size-large product-title-word-break'})
+            if name != None:
+                res = name.get_text()
+                lst.append(res.strip())
+        if title != None:
+            res = title.get_text()
+            lst.append(res.strip())
+        return titname(URL)
+
+
 @app.route("/")
 def index():
     return render_template("amazon.html")
@@ -51,12 +77,12 @@ def amazon():
         DesiredPrice = request.form.get("price")
         ua = UserAgent()
         headers = {
-            'User-Agent': ua.chrome}
+            'User-Agent': ua.random}
         page = requests.get(URL, headers=headers)
-        soup = BeautifulSoup(page.content, 'html.parser')
-
-        title = soup.find(id='productTitle').get_text()
-        title = title.strip()
+        soup = BeautifulSoup(page.content, 'lxml')
+        title = titname(URL)
+        global lst
+        lst = []
         price = soup.find(id="priceblock_ourprice")
         if price == None:
             price = soup.find(id="priceblock_dealprice")
@@ -76,5 +102,5 @@ def amazon():
             except:
                 pass
         rating = str(soup.find('span', {"class": "a-icon-alt"}).get_text())
-        sendmail(name, email, title, URL, flag)
+        #sendmail(name, email, title, URL, flag)
         return render_template('details.html', title=title, price=str(price)[:-2], dprice=DesiredPrice, url=URL, img_url=img_list[-1], rating=rating)
