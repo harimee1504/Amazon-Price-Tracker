@@ -102,5 +102,5 @@ def amazon():
             except:
                 pass
         rating = str(soup.find('span', {"class": "a-icon-alt"}).get_text())
-        #sendmail(name, email, title, URL, flag)
+        sendmail(name, email, title, URL, flag)
         return render_template('details.html', title=title, price=str(price)[:-2], dprice=DesiredPrice, url=URL, img_url=img_list[-1], rating=rating)
