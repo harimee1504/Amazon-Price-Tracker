@@ -36,13 +36,13 @@ def sendmail(name, receiver, tit, url1, r):
     smtp.quit()
 
 
-global lst
-lst = []
+global titlst, pricelst
+titlst, pricelst = [], []
 
 
-def titname(URL):
-    if len(lst) != 0:
-        return lst[0]
+def titlename(URL):
+    if len(titlst) != 0:
+        return titlst[0]
     else:
         ua = UserAgent()
         headers = {
@@ -55,11 +55,33 @@ def titname(URL):
                 'span', attrs={'class': 'a-size-large product-title-word-break'})
             if name != None:
                 res = name.get_text()
-                lst.append(res.strip())
+                titlst.append(res.strip())
         if title != None:
             res = title.get_text()
-            lst.append(res.strip())
-        return titname(URL)
+            titlst.append(res.strip())
+        return titlename(URL)
+
+
+def pricename(URL):
+    if len(pricelst) != 0:
+        return pricelst[0]
+    else:
+        ua = UserAgent()
+        headers = {
+            'User-Agent': ua.random}
+        page = requests.get(URL, headers=headers)
+        soup = BeautifulSoup(page.content, 'lxml')
+        price = soup.find(id="priceblock_dealprice")
+        for d in soup.findAll('div', attrs={'class': 'a-section a-spacing-small'}):
+            name = d.find(
+                'span', attrs={'class': 'a-size-medium a-color-price priceBlockBuyingPriceString'})
+            if name != None:
+                res = name.get_text()
+                pricelst.append(res.strip())
+        if price != None:
+            res = price.get_text()
+            pricelst.append(res.strip())
+        return pricename(URL)
 
 
 @app.route("/")
@@ -80,13 +102,11 @@ def amazon():
             'User-Agent': ua.random}
         page = requests.get(URL, headers=headers)
         soup = BeautifulSoup(page.content, 'lxml')
-        title = titname(URL)
-        global lst
-        lst = []
-        price = soup.find(id="priceblock_ourprice")
-        if price == None:
-            price = soup.find(id="priceblock_dealprice")
-        price = price.get_text()
+        title = titlename(URL)
+        price = pricename(URL)
+        global titlst, pricelst
+        titlst, pricelst = [], []
+
         price = float(''.join(price[2:-3].split(',')))
 
         if price <= float(DesiredPrice):
