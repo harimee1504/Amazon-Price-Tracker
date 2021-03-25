@@ -11,8 +11,8 @@ app = Flask(__name__)
 
 
 def sendmail(name, receiver, tit, url1, r):
-    Email_PASSWORD = "JO8NC5NAaa"
-    Email_ADDRESS = "hariwebpage@gmail.com"
+    Email_PASSWORD = "Your Password Here"
+    Email_ADDRESS = "Your Email Address Here"
     url = re.split('//', url1)
     url = url[-1]
     msg = EmailMessage()
